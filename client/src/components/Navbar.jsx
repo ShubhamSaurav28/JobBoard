@@ -38,24 +38,24 @@ export default function Navbar() {
                     </NavLink>
                 </li>
                 <li className='hover:text-purple-500 font-semibold'>
-                    <NavLink to="/">
-                        Contact Us
+                    <NavLink to="/community">
+                        Community
                     </NavLink>
                 </li>
                 <li className='hover:text-purple-500 font-semibold'>
-                    <NavLink to="/">
+                    <NavLink to="/contactus">
                         Contact Us
                     </NavLink>
                 </li>
             </ul>
         </div>
         <div className='flex items-center p-2 mr-4 gap-3'>
-            <Link to="">
+            <Link to="/login">
             <button className='border shadow-md rounded-2xl px-5 py-3 font-semibold hover:bg-black hover:text-white hover:duration-200'>
                 Login
             </button>
             </Link>
-            <Link to="">
+            <Link to="/signup">
             <button className='border shadow-md rounded-2xl px-5 py-3 font-semibold hover:bg-black hover:text-white hover:duration-200'>
                 SignUp
             </button>
