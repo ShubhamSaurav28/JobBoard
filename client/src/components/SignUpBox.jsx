@@ -103,7 +103,6 @@ export default function SignUpBox() {
                   name="email"
                   placeholder="Email"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-[#2b9348] focus:ring-[#2b9348] [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#2b9348] valid:[&:not(:placeholder-shown)]:border-[#2b9348]"
-                  autoComplete="off"
                   required
                   pattern="[a-z0-9._+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                   onChange={(e) => {
@@ -132,7 +131,6 @@ export default function SignUpBox() {
                   name="password"
                   placeholder="Password"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-[#2b9348] focus:ring-[#2b9348] [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#2b9348] valid:[&:not(:placeholder-shown)]:border-[#2b9348]"
-                  autoComplete="off"
                   required
                   pattern="[0-9a-zA-Z]{6,}"
                   onChange={(e) => {
@@ -161,7 +159,6 @@ export default function SignUpBox() {
                   name="password_confirmation"
                   placeholder="Confirm password"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-[#2b9348] focus:ring-[#2b9348] [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#2b9348] valid:[&:not(:placeholder-shown)]:border-[#2b9348]"
-                  autoComplete="off"
                   required
                   pattern={password}
                   onChange={(e) => setConfirmPassword(e.target.value)}

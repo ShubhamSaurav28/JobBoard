@@ -78,7 +78,6 @@ export default function LoginBox() {
                                     name="email"
                                     placeholder="Email"
                                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-pink-500 focus:ring-pink-500  [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-pink-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                    autoComplete="off"
                                     required
                                     pattern="[a-z0-9._+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                     onChange={(e) => {
@@ -107,7 +106,6 @@ export default function LoginBox() {
                                     name="password"
                                     placeholder="Password"
                                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-pink-500 focus:ring-pink-500  [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-pink-400 valid:[&:not(:placeholder-shown)]:border-green-500"
-                                    autoComplete="off"
                                     required
                                     onChange={(e) => {
                                         setData({

@@ -33,13 +33,8 @@ export default function Navbar() {
                     </NavLink>
                 </li>
                 <li className='hover:text-purple-500 font-semibold'>
-                    <NavLink to="/employ">
+                    <NavLink to="/employers">
                         Employers
-                    </NavLink>
-                </li>
-                <li className='hover:text-purple-500 font-semibold'>
-                    <NavLink to="/community">
-                        Community
                     </NavLink>
                 </li>
                 <li className='hover:text-purple-500 font-semibold'>
