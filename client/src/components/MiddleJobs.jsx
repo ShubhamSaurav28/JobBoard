@@ -13,7 +13,7 @@ export default function MiddleJobs() {
         <>
             <div className='w-[65%] gap-6 flex flex-wrap rounded-lg'>
                 <Link to='/'>
-                    <div className='border-slate-300 border rounded-md p-3 group hover:bg-slate-50'>
+                    <div className='border-slate-300 border rounded-md p-3 group  hover:shadow-lg'>
                         <div>
                             <div className='flex'>
                                 <img className='border mr-3 w-[54px] h-[50px] rounded-full' src="https://plus.unsplash.com/premium_photo-1673326679548-962d2fe77423?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y29tcGFueSUyMGxvZ298ZW58MHx8MHx8fDA%3D" alt="company logo" />

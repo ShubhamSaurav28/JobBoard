@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ContactUsLeft from '../components/ContactUsLeft'
 import ContactUsRight from '../components/ContactUsRight'
 
 export default function ContactUs() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
     <div className='mt-[100px] text-center'>

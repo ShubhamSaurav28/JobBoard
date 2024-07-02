@@ -75,7 +75,6 @@ export default function LoginBox() {
                             <div className="flex flex-col items-start">
                                 <input
                                     type="email"
-                                    name="email"
                                     placeholder="Email"
                                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-pink-500 focus:ring-pink-500  [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-pink-400 valid:[&:not(:placeholder-shown)]:border-green-500"
                                     required
@@ -103,7 +102,6 @@ export default function LoginBox() {
                             <div className="flex flex-col items-start">
                                 <input
                                     type="password"
-                                    name="password"
                                     placeholder="Password"
                                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-pink-500 focus:ring-pink-500  [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-pink-400 valid:[&:not(:placeholder-shown)]:border-green-500"
                                     required

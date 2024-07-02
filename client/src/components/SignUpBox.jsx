@@ -72,7 +72,6 @@ export default function SignUpBox() {
                 <input
                   id='username'
                   type="text"
-                  name="username"
                   placeholder="Name"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-[#2b9348] focus:ring-[#2b9348] [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#2b9348] valid:[&:not(:placeholder-shown)]:border-[#2b9348]"
                   pattern="[a-zA-Z ]{2,}"
@@ -100,7 +99,6 @@ export default function SignUpBox() {
               <div className="flex flex-col items-start">
                 <input
                   type="email"
-                  name="email"
                   placeholder="Email"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-[#2b9348] focus:ring-[#2b9348] [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#2b9348] valid:[&:not(:placeholder-shown)]:border-[#2b9348]"
                   required
@@ -128,7 +126,6 @@ export default function SignUpBox() {
               <div className="flex flex-col items-start">
                 <input
                   type="password"
-                  name="password"
                   placeholder="Password"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-[#2b9348] focus:ring-[#2b9348] [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#2b9348] valid:[&:not(:placeholder-shown)]:border-[#2b9348]"
                   required
@@ -156,7 +153,6 @@ export default function SignUpBox() {
               <div className="flex flex-col items-start">
                 <input
                   type="password"
-                  name="password_confirmation"
                   placeholder="Confirm password"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-[#2b9348] focus:ring-[#2b9348] [&:not(:placeholder-shown):not(:focus):invalid~span]:block invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#2b9348] valid:[&:not(:placeholder-shown)]:border-[#2b9348]"
                   required
