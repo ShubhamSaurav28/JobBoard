@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ContactUs from './pages/ContactUs'
 import Employers from './pages/Employers'
+import Profile from './pages/Profile'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path='/signup' element={<SignUp/>}/>
             <Route path='/contactus' element={<ContactUs/>}/>
             <Route path='/employers' element={<Employers/>}/>
+            <Route path='/profile' element={<Profile/>}/>
           </Route>
         </Routes>
     </>
