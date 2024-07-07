@@ -9,6 +9,8 @@ import SignUp from './pages/SignUp'
 import ContactUs from './pages/ContactUs'
 import Employers from './pages/Employers'
 import Profile from './pages/Profile'
+import PostJob from './pages/PostJob'
+import RegisterCompany from './pages/RegisterCompany'
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
             <Route path='/contactus' element={<ContactUs/>}/>
             <Route path='/employers' element={<Employers/>}/>
             <Route path='/profile' element={<Profile/>}/>
+            <Route path='/postjob' element={<PostJob/>}/>
+            <Route path='/registercompany' element={<RegisterCompany/>}/>
           </Route>
         </Routes>
     </>

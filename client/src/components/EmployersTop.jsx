@@ -15,7 +15,7 @@ export default function EmployersTop() {
           <p className='text-xl font-bold mb-2'>Post a Job</p>
           <div className='group'>
             <img className='rounded-md w-[350px] mb-4' src={PostJobs} alt="post jobs" />
-            <Link to="#">
+            <Link to="/postjob">
             <button className='border shadow-xl p-2 rounded-lg bg-red-400 text-white font-semibold transform transition-transform duration-300 ease-in-out hover:scale-105 tracking-widest text-xl '>
               Post Job
             </button>

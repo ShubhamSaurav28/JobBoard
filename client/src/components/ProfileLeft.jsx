@@ -27,9 +27,19 @@ export default function ProfileLeft() {
             <span className='rounded-full bg-slate-100 text-blue-600 ring-1 cursor-pointer px-3 py-[2px]'>CSS</span>
             <span className='rounded-full bg-slate-100 text-blue-600 ring-1 cursor-pointer px-3 py-[2px]'>Node.js</span>
         </div> 
-        <div>
-            
-        </div> 
+        <h2 className='font-semibold text-xl py-2 mt-2'>Education</h2>
+        <ul className='flex flex-col gap-3 divide-y-2'>
+            <li>
+                <h3 className='text-blue-500 text-lg font-semibold'>Institute</h3>
+                <h4 className='text-orange-500 font-semibold'>Degree</h4>
+                <h4 className='font-bold'>Year: <span className='font-medium text-gray-500'>2005</span></h4>
+            </li>
+            <li>
+                <h3 className='text-blue-500 text-lg font-semibold'>Institute</h3>
+                <h4 className='text-orange-500 font-semibold'>Degree</h4>
+                <h4 className='font-bold'>Year: <span className='font-medium text-gray-500'>2005</span></h4>
+            </li>
+        </ul>  
     </div>
     
     </>

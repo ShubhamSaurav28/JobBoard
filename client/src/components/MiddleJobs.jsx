@@ -11,14 +11,15 @@ export default function MiddleJobs() {
     
     return (
         <>
-            <div className='w-[65%] gap-6 flex flex-wrap rounded-lg'>
+            <div className='w-[65%] gap-6 flex flex-wrap rounded-lg '>
                 <Link to='/'>
-                    <div className='border-slate-300 border rounded-md p-3 group  hover:shadow-lg'>
+                    <div className='border-slate-300 border rounded-md p-3 group hover:shadow-lg'>
                         <div>
                             <div className='flex'>
                                 <img className='border mr-3 w-[54px] h-[50px] rounded-full' src="https://plus.unsplash.com/premium_photo-1673326679548-962d2fe77423?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y29tcGFueSUyMGxvZ298ZW58MHx8MHx8fDA%3D" alt="company logo" />
                                 <h1 className='text-xl font-semibold w-full my-auto group-hover:text-blue-500 group-hover:underline'>CompanyName</h1>
                             </div>
+                            <h2 className=' group font-semibold text-green-600 group-hover:text-green-500 mt-1 text-lg'>Job Designation</h2>
                             <div id='addtag1' className='flex my-2'>
                                 <div className='bg-slate-300 px-1 rounded-[4px]'>
                                     <span>Work From Home</span>
@@ -41,7 +42,38 @@ export default function MiddleJobs() {
                             </p>
                         </div>
                     </div>
-                </Link>        
+                </Link> 
+                <Link to='/profile'>
+                    <div className='border-slate-300 border rounded-md p-3 group hover:shadow-lg'>
+                        <div>
+                            <div className='flex'>
+                                <img className='border mr-3 w-[54px] h-[50px] rounded-full' src="https://plus.unsplash.com/premium_photo-1673326679548-962d2fe77423?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y29tcGFueSUyMGxvZ298ZW58MHx8MHx8fDA%3D" alt="company logo" />
+                                <h1 className='text-xl font-semibold w-full my-auto group-hover:text-blue-500 group-hover:underline'>CompanyName</h1>
+                            </div>
+                            <h2 className=' group font-semibold text-green-600 group-hover:text-green-500 mt-1 text-lg'>Job Designation</h2>
+                            <div id='addtag1' className='flex my-2'>
+                                <div className='bg-slate-300 px-1 rounded-[4px]'>
+                                    <span>Work From Home</span>
+                                </div>
+                            </div>
+                            <div className='flex my-2'>
+                                <div className='flex items-center space-x-1'>
+                                    <FontAwesomeIcon icon={faLocationDot} />
+                                    <span className='text-sm'>Gurgaon</span>
+                                </div>
+                                <div className='flex items-center space-x-1 ml-4'>
+                                    <FontAwesomeIcon icon={faSackDollar} />
+                                    <span className='text-sm'>10Lpa-21Lpa</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                {truncateText(text, 40)}
+                            </p>
+                        </div>
+                    </div>
+                </Link>       
             </div>
         </>
     )
