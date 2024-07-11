@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
-// import axios from 'axios';
-// import baseURL from '../DB';
-// import { AppState } from '../Context/AgriProvider';
-// import { toast } from 'react-toastify'
+import axios from 'axios';
+import baseURL from '../../DB';
+import { AppState } from '../context/UserContext';
+import { toast } from 'react-toastify'
 
 export default function LoginBox() {
     const [data, setData] = useState({
@@ -11,7 +11,7 @@ export default function LoginBox() {
         password: ''
     });
 
-    // const { user, setIsLoading } = AppState();
+    const { user, setIsLoading } = AppState();
 
     const navigate = useNavigate();
     const parseJwt = (token) => {
@@ -26,7 +26,7 @@ export default function LoginBox() {
         setIsLoading(true);
         e.preventDefault();
         try {
-            let response = await axios.post(`${baseURL}/api/user/login`, data);
+            let response = await axios.post(`${baseURL}/user/login`, data);
             if (response && response.data) {
                 const token = response.data.token;
                 const decodedToken = parseJwt(token);
@@ -36,7 +36,7 @@ export default function LoginBox() {
                 //     cityName: decodedToken.cityName
                 // });
                 if (decodedToken) {
-                    window.localStorage.setItem('agriSmart', JSON.stringify(decodedToken));
+                    window.localStorage.setItem('jobdekho', JSON.stringify(decodedToken));
                     setIsLoading(false);
                     navigate('/');
                     window.location.reload(false);
@@ -53,6 +53,12 @@ export default function LoginBox() {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user])
 
     return (
         <>
