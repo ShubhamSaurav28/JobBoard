@@ -48,7 +48,12 @@ const userSchema = new mongoose.Schema({
     type: String
   },
   resume: {
-    type: String //file
+    filename:{
+      type: String
+    },
+    fileid:{
+      type: String
+    }
   },
   skills: {
     type: [String]

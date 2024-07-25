@@ -4,7 +4,25 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Company = require('../models/Company');
 const { z } = require('zod');
+const multer  = require('multer');
+const { v4: uuidv4 } = require('uuid');
 const router = express.Router();
+const path = require('path');
+const fs = require('fs');
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+      const ext = path.extname(file.originalname);
+      const uniqueFilename = `${uuidv4()}${ext}`;
+      cb(null, uniqueFilename); 
+    }
+  });
+
+const upload = multer({ storage });
 
 const signupSchema = z.object({
     username: z.string().min(3, 'Username must be at least 3 characters long'),
@@ -92,14 +110,64 @@ router.get('/profile/:id', async (req,res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
+        let com;
         if(user.company){
-            const com = Company.findById(user.company);
-            
+            com = await Company.findById(user.company);
         }
-        res.status(200).json({ user: user });
+        res.status(200).json({ user: user, company: com });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
 })
+
+router.post('/:userId/upload', upload.single('file'), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+    }
+    console.log(req.file);
+    const { userId } = req.params;
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        user.resume.filename = req.file.originalname;
+        user.resume.fileid = req.file.filename;
+        await user.save();
+
+        res.json({ message: 'File uploaded and user updated successfully', file: req.file });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.get('/:userId/file', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        if (!user.resume || !user.resume.fileid) {
+            return res.status(404).json({ error: 'Resume not found for this user' });
+        }
+        const filePath = path.join(path.join(__dirname, 'uploads'), user.resume.fileid);
+        console.log(filePath);
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+        const fileData = fs.readFileSync(filePath);
+        console.log(fileData);
+        res.json({
+            filename: user.resume.filename,
+            content: fileData.toString('base64')
+        });
+        
+    } catch (error) {
+        console.error('Error fetching user or file:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 module.exports = router;

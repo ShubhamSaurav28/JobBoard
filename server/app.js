@@ -5,6 +5,7 @@ const userRoutes = require('./routes/userRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 
 dotenv.config();
@@ -32,6 +33,7 @@ mongoose.connect(mongouri)
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.use('/user', userRoutes);

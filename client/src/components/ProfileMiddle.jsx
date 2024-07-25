@@ -2,10 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
+import baseURL from '../../DB';
+import axios from 'axios';
+import { AppState } from '../context/UserContext';
 
-
-export default function ProfileMiddle({ userProfile }) {
+export default function ProfileMiddle({ userProfile, companyProfile }) {
   const [bgColors, setBgColors] = useState([]);
+  const [fileName, setFileName] = useState('');
+  const { user } = AppState();
+  const [loading, setLoading] = useState(true);
+  const [file, setFile] = useState(null);
+
+
 
   function generateSomewhatLightColor() {
     const baseColors = [
@@ -19,15 +28,36 @@ export default function ProfileMiddle({ userProfile }) {
     ];
 
     const baseColor = baseColors[Math.floor(Math.random() * baseColors.length)];
-    const [x, y, z] = baseColor.map(component => Math.min(component + Math.floor(Math.random() * 50), 255));
+    const [r, g, b] = baseColor.map(component => Math.min(component + Math.floor(Math.random() * 50), 255));
 
-    return `rgb(${x}, ${y}, ${z})`;
+    return `rgb(${r}, ${g}, ${b})`;
   }
 
   useEffect(() => {
     const initialBgColors = userProfile.experience ? userProfile.experience.map(() => generateSomewhatLightColor()) : [];
     setBgColors(initialBgColors);
   }, [userProfile.experience]);
+
+  useEffect(() => {
+    const fetchFile = async () => {
+      try {
+        const response = await axios.get(`${baseURL}/user/${user.id}/file`);
+        console.log(response);
+        const fileBlob = new Blob([Uint8Array.from(atob(response.data.content), c => c.charCodeAt(0))], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(fileBlob);
+        setFileData({
+          filename: response.data.filename,
+          fileURL: fileURL
+        });
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching file:', err);
+        setLoading(false);
+      }
+    };
+
+    fetchFile();
+  }, []);
 
   const addNewExperience = () => {
     setBgColors([...bgColors, generateSomewhatLightColor()]);
@@ -36,6 +66,32 @@ export default function ProfileMiddle({ userProfile }) {
   const formatDate = (dateString) => {
     return dateString ? format(new Date(dateString), 'MMMM dd, yyyy') : 'N/A';
   };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        setFileName(file.name);
+        console.log('Selected file:', file.name);
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+            const response = await axios.post(`${baseURL}/user/${user.id}/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Upload successful:', response.data);
+        } catch (error) {
+            console.error('Upload error:', error);
+            if (error.response) {
+                console.log('Error response data:', error.response.data);
+            }
+        }
+    } else {
+        setFileName('');
+    }
+};
+
 
   return (
     <div className='w-[70vw] flex flex-col gap-5 h-full'>
@@ -59,20 +115,29 @@ export default function ProfileMiddle({ userProfile }) {
           </li>
           <li className='w-[30%] px-3'>
             <h4 className='font-semibold text-gray-600 tracking-wide'>Email</h4>
-            <h5 className='font-medium'>{userProfile.email}</h5>
+            <h5 className='font-medium'>{userProfile.email || "N/A"}</h5>
           </li>
           <li className='w-[30%] px-3'>
-            <h4 className='font-semibold text-gray-600 tracking-wide'>Email</h4>
-            <h5 className='font-medium'>{userProfile.company.companyName}</h5>
+            <h4 className='font-semibold text-gray-600 tracking-wide'>Company</h4>
+            <Link to='/' className='font-medium hover:text-blue-500'>{companyProfile.companyName || "N/A"}</Link>
           </li>
         </ul>
         <div className='flex items-center mx-6 mb-6 mt-2 justify-between'>
-          <div>
-            <input className='hidden' type="file" id="resumeUpload" />
+          <form>
+            <input
+              className='hidden'
+              type="file"
+              id="resumeUpload"
+              accept=".pdf"
+              onChange={handleFileChange}
+            />
             <label htmlFor="resumeUpload" className='border py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'>
               <FontAwesomeIcon className="mr-2" icon={faUpload} /><span>Upload Resume</span>
             </label>
-          </div>
+            {fileName && (
+              <span className='ml-4 text-gray-600'>{fileName}</span>
+            )}
+          </form>
           <button className='border py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'>Edit</button>
         </div>
       </div>
@@ -87,7 +152,7 @@ export default function ProfileMiddle({ userProfile }) {
           {userProfile.experience && userProfile.experience.map((exp, index) => (
             <li key={index} className='rounded-md p-2 flex items-center gap-4'>
               <div className='rounded-full w-[80px] h-[80px] flex justify-center items-center' style={{ backgroundColor: bgColors[index] }}>
-                <span className='text-white font-semibold text-[30px]'>{exp.company ? exp.company.charAt(0).toUpperCase()+exp.company.charAt(1).toUpperCase() : "?"}</span>
+                <span className='text-white font-semibold text-[30px]'>{exp.company ? exp.company.charAt(0).toUpperCase() + exp.company.charAt(1).toUpperCase() : "?"}</span>
               </div>
               <div>
                 <h4 className='text-blue-600 font-semibold text-lg'>{exp.company || "Company Name"}</h4>
