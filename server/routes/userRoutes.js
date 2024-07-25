@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Company = require('../models/Company');
 const { z } = require('zod');
 const router = express.Router();
 
@@ -90,6 +91,10 @@ router.get('/profile/:id', async (req,res) => {
         const user = await User.findById(id);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
+        }
+        if(user.company){
+            const com = Company.findById(user.company);
+            
         }
         res.status(200).json({ user: user });
     } catch (error) {

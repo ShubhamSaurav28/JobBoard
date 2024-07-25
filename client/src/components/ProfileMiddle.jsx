@@ -61,6 +61,10 @@ export default function ProfileMiddle({ userProfile }) {
             <h4 className='font-semibold text-gray-600 tracking-wide'>Email</h4>
             <h5 className='font-medium'>{userProfile.email}</h5>
           </li>
+          <li className='w-[30%] px-3'>
+            <h4 className='font-semibold text-gray-600 tracking-wide'>Email</h4>
+            <h5 className='font-medium'>{userProfile.company.companyName}</h5>
+          </li>
         </ul>
         <div className='flex items-center mx-6 mb-6 mt-2 justify-between'>
           <div>

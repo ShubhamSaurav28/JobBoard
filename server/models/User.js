@@ -63,7 +63,11 @@ const userSchema = new mongoose.Schema({
     year: {
       type: Number
     }
-  }]
+  }],
+  company:{ 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company'
+   }
 });
 
 const User = mongoose.model('User', userSchema);

@@ -1,6 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Layout from './Layout'
 import Jobs from './pages/Jobs'
@@ -11,10 +10,13 @@ import Employers from './pages/Employers'
 import Profile from './pages/Profile'
 import PostJob from './pages/PostJob'
 import RegisterCompany from './pages/RegisterCompany'
+import { AppState } from './context/UserContext'
+import ProtectedRoutes from './ProtectedRoutes'
+
 
 
 function App() {
-
+  const { user } = AppState();
   return (
     <>
         <Routes>
@@ -25,9 +27,9 @@ function App() {
             <Route path='/signup' element={<SignUp/>}/>
             <Route path='/contactus' element={<ContactUs/>}/>
             <Route path='/employers' element={<Employers/>}/>
-            <Route path='/profile' element={<Profile/>}/>
-            <Route path='/postjob' element={<PostJob/>}/>
-            <Route path='/registercompany' element={<RegisterCompany/>}/>
+            <Route path='/profile' element={<ProtectedRoutes page={<Profile />} />}/>
+            <Route path='/postjob' element={<ProtectedRoutes page={<PostJob />} />}/>
+            <Route path='/registercompany' element={<ProtectedRoutes page={<RegisterCompany />} />}/>
           </Route>
         </Routes>
     </>

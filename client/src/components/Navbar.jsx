@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Logo from '../assets/Logo.gif';
 import LogoStatic from '../assets/LogoStatic.jpg';
-import { AppState } from '../context/UserContext';
 import axios from 'axios';
 import baseURL from '../../DB';
 import { tokenCheck } from '../HelperToken';
@@ -53,7 +52,7 @@ export default function Navbar() {
 
   const handleProfile = (e) => {
     console.log(menuRef.current);
-        console.log(e.target);
+    console.log(e.target);
     console.log('Profile clicked');
     setOpen(false);
     navigate('/profile');
@@ -62,7 +61,6 @@ export default function Navbar() {
   const handleSettings = () => {
     console.log('Settings clicked');
     setOpen(false);
-    // Add your settings navigation or functionality here
   }
 
   

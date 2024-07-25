@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
+const companyRoutes = require('./routes/companyRoutes');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
@@ -34,6 +35,7 @@ app.use(cookieParser());
 
 
 app.use('/user', userRoutes);
+app.use('/company',companyRoutes);
 
 app.listen(PORT, () => {
     console.log(`server is running at ${PORT}`);
