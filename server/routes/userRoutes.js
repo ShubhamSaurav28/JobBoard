@@ -152,18 +152,24 @@ router.get('/:userId/file', async (req, res) => {
         if (!user.resume || !user.resume.fileid) {
             return res.status(404).json({ error: 'Resume not found for this user' });
         }
-        const filePath = path.join(path.join(__dirname, 'uploads'), user.resume.fileid);
-        console.log(filePath);
-        if (!fs.existsSync(filePath)) {
+        const filePath = path.join('uploads', user.resume.fileid);
+        try {
+            await fs.promises.access(filePath);
+        } catch (err) {
+            console.error('File access error:', err);
             return res.status(404).json({ error: 'File not found' });
         }
-        const fileData = fs.readFileSync(filePath);
-        console.log(fileData);
-        res.json({
-            filename: user.resume.filename,
-            content: fileData.toString('base64')
-        });
-        
+
+        try {
+            const fileData = await fs.promises.readFile(filePath);
+            res.json({
+                filename: user.resume.filename,
+                content: fileData.toString('base64')
+            });
+        } catch (err) {
+            console.error('File read error:', err);
+            res.status(500).json({ error: 'Error reading file' });
+        }
     } catch (error) {
         console.error('Error fetching user or file:', error);
         res.status(500).json({ error: 'Internal server error' });

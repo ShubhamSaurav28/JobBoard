@@ -3,18 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import baseURL from '../../DB';
 import axios from 'axios';
 import { AppState } from '../context/UserContext';
+import baseURL from '../../DB'; // Ensure this is correctly imported
 
 export default function ProfileMiddle({ userProfile, companyProfile }) {
   const [bgColors, setBgColors] = useState([]);
   const [fileName, setFileName] = useState('');
   const { user } = AppState();
   const [loading, setLoading] = useState(true);
-  const [file, setFile] = useState(null);
-
-
+  const [fileData, setFileData] = useState(null);
 
   function generateSomewhatLightColor() {
     const baseColors = [
@@ -45,6 +43,8 @@ export default function ProfileMiddle({ userProfile, companyProfile }) {
         console.log(response);
         const fileBlob = new Blob([Uint8Array.from(atob(response.data.content), c => c.charCodeAt(0))], { type: 'application/pdf' });
         const fileURL = URL.createObjectURL(fileBlob);
+        setFileName(response.data.filename);
+        console.log(fileName);
         setFileData({
           filename: response.data.filename,
           fileURL: fileURL
@@ -57,7 +57,7 @@ export default function ProfileMiddle({ userProfile, companyProfile }) {
     };
 
     fetchFile();
-  }, []);
+  }, [user.id, fileName]);
 
   const addNewExperience = () => {
     setBgColors([...bgColors, generateSomewhatLightColor()]);
@@ -70,28 +70,26 @@ export default function ProfileMiddle({ userProfile, companyProfile }) {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-        setFileName(file.name);
-        console.log('Selected file:', file.name);
-        const formData = new FormData();
-        formData.append('file', file);
-        try {
-            const response = await axios.post(`${baseURL}/user/${user.id}/upload`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            console.log('Upload successful:', response.data);
-        } catch (error) {
-            console.error('Upload error:', error);
-            if (error.response) {
-                console.log('Error response data:', error.response.data);
-            }
+      setFileName(file.name);
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        const response = await axios.post(`${baseURL}/user/${user.id}/upload`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log('Upload successful:', response.data);
+      } catch (error) {
+        console.error('Upload error:', error);
+        if (error.response) {
+          console.log('Error response data:', error.response.data);
         }
+      }
     } else {
-        setFileName('');
+      setFileName('');
     }
-};
-
+  };
 
   return (
     <div className='w-[70vw] flex flex-col gap-5 h-full'>
@@ -134,8 +132,10 @@ export default function ProfileMiddle({ userProfile, companyProfile }) {
             <label htmlFor="resumeUpload" className='border py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'>
               <FontAwesomeIcon className="mr-2" icon={faUpload} /><span>Upload Resume</span>
             </label>
-            {fileName && (
-              <span className='ml-4 text-gray-600'>{fileName}</span>
+            {fileName && fileData && (
+              <a href={fileData.fileURL} target="_blank" rel="noopener noreferrer" className='ml-4 text-blue-500 hover:underline'>
+                {fileName}
+              </a>
             )}
           </form>
           <button className='border py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'>Edit</button>
