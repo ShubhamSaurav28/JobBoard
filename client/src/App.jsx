@@ -12,6 +12,7 @@ import PostJob from './pages/PostJob'
 import RegisterCompany from './pages/RegisterCompany'
 import { AppState } from './context/UserContext'
 import ProtectedRoutes from './ProtectedRoutes'
+import ProfileEdit from './pages/ProfileEdit'
 
 
 
@@ -27,9 +28,10 @@ function App() {
             <Route path='/signup' element={<SignUp/>}/>
             <Route path='/contactus' element={<ContactUs/>}/>
             <Route path='/employers' element={<Employers/>}/>
-            <Route path='/profile' element={<ProtectedRoutes page={<Profile />} />}/>
-            <Route path='/postjob' element={<ProtectedRoutes page={<PostJob />} />}/>
-            <Route path='/registercompany' element={<ProtectedRoutes page={<RegisterCompany />} />}/>
+            <Route path='/profile' element={<ProtectedRoutes page={<Profile/>} />}/>
+            <Route path='/postjob' element={<ProtectedRoutes page={<PostJob/>} />}/>
+            <Route path='/registercompany' element={<ProtectedRoutes page={<RegisterCompany/>} />}/>
+            <Route path='/profile/:id' element={<ProtectedRoutes page={<ProfileEdit/>} />}/>
           </Route>
         </Routes>
     </>

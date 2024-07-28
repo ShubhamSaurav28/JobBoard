@@ -176,4 +176,46 @@ router.get('/:userId/file', async (req, res) => {
     }
 });
 
+router.put('/:userId/profile', upload.single('profilepic'), async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const {
+        username,
+        designation,
+        description,
+        skills,
+        dob,
+        totalexp,
+        phone,
+        location,
+        experience,
+        education
+      } = req.body;  
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      user.username = username || user.username;
+      user.designation = designation || user.designation;
+      user.description = description || user.description;
+      if (Array.isArray(skills)) {
+        user.skills = skills.map(skill => skill.trim());
+      }
+      user.dob = dob ? new Date(dob) : user.dob;
+      user.totalexp = totalexp || user.totalexp;
+      user.phone = phone || user.phone;
+      user.location = location || user.location;
+      user.experience = experience || user.experience;
+      user.education = education || user.education;
+      if (req.file) {
+        user.profilepic = req.file.path;
+      }
+      const updatedUser = await user.save();
+      res.json(updatedUser);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
 module.exports = router;

@@ -115,10 +115,12 @@ export default function ProfileMiddle({ userProfile, companyProfile }) {
             <h4 className='font-semibold text-gray-600 tracking-wide'>Email</h4>
             <h5 className='font-medium'>{userProfile.email || "N/A"}</h5>
           </li>
-          <li className='w-[30%] px-3'>
+          {companyProfile?<li className='w-[30%] px-3'>
             <h4 className='font-semibold text-gray-600 tracking-wide'>Company</h4>
             <Link to='/' className='font-medium hover:text-blue-500'>{companyProfile.companyName || "N/A"}</Link>
-          </li>
+          </li>:<li></li>
+          }
+          
         </ul>
         <div className='flex items-center mx-6 mb-6 mt-2 justify-between'>
           <form>
@@ -138,15 +140,14 @@ export default function ProfileMiddle({ userProfile, companyProfile }) {
               </a>
             )}
           </form>
-          <button className='border py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'>Edit</button>
+          <Link to={`/profile/${user.id}`} className='border py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'>
+            Edit
+          </Link>
         </div>
       </div>
       <div className='border bg-white w-full rounded-xl shadow-lg p-5'>
         <div className='flex justify-between'>
           <h3 className='font-semibold text-2xl'>Experience</h3>
-          <button onClick={addNewExperience} className='py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md'>
-            Add Experience
-          </button>
         </div>
         <ul className='divide-y-2'>
           {userProfile.experience && userProfile.experience.map((exp, index) => (

@@ -30,8 +30,6 @@ router.post('/:userId/register', async (req, res) => {
     if (existingCompany) {
       return res.status(400).json({ message: 'Company already registered with this email' });
     }
-
-    // Create the new company
     const company = await Company.create({
       companyName,
       address,
